@@ -1,28 +1,28 @@
 import numpy as np
 
-from . import ESTIMATOR
+from . import Config
 from .utils import chosen_estimator
 from pyroll.core import RollPass, Hook
 
-sims_neutral_point_estimator = Hook[float]()
+RollPass.Roll.sims_neutral_point_estimator = Hook[float]()
 """Neutral line estimator setting the neutral point according to the Sims solution."""
 
 
 @RollPass.front_tension
 def front_tension(self: RollPass):
     raise ValueError(
-        "You must provide a front tension to use the Sims estimator of the pyroll-neutral-line-estimator plugin.")
+        "Please provide a front tension to use the Sims estimator of the pyroll-neutral-line-estimator plugin.")
 
 
 @RollPass.back_tension
 def back_tension(self: RollPass):
     raise ValueError(
-        "You must provide a back tension to use the Sims estimator of the pyroll-neutral-line-estimator plugin.")
+        "Please provide a back tension to use the Sims estimator of the pyroll-neutral-line-estimator plugin.")
 
 
 @RollPass.Roll.sims_neutral_point_estimator
 def sims_neutral_point_estimator(self: RollPass.Roll):
-    if chosen_estimator(ESTIMATOR, "sims"):
+    if chosen_estimator(Config.ESTIMATOR, "sims"):
         rp = self.roll_pass
         mean_flow_stress = (rp.in_profile.flow_stress + 2 * rp.out_profile.flow_stress) / 3
 

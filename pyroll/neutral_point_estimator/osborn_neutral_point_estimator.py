@@ -1,37 +1,29 @@
 import numpy as np
 
-from . import ESTIMATOR
+from . import Config
 from .utils import chosen_estimator
 from pyroll.core import RollPass, Hook
+import pyroll.interface_friction
 
-osborn_neutral_point_estimator = Hook[float]()
+RollPass.Roll.osborn_neutral_point_estimator = Hook[float]()
 """Neutral line estimator setting the neutral point according to the Osborn solution."""
-
-coulomb_friction_coefficient = Hook[float]()
-"""Friction coefficient of Coulomb's friction model."""
-
-
-@RollPass.coulombs_fricition_coefficient
-def coulomb_friction_coefficient(self: RollPass):
-    raise ValueError(
-        "You must provide Coulomb's friction coefficient to use the Ford-Ellis-Bland estimator of the pyroll-neutral-line-estimator plugin.")
 
 
 @RollPass.front_tension
 def front_tension(self: RollPass):
     raise ValueError(
-        "You must provide a front tension to use the Ford-Ellis-Bland estimator of the pyroll-neutral-line-estimator plugin.")
+        "Please provide a front tension to use the Ford-Ellis-Bland estimator of the pyroll-neutral-line-estimator plugin.")
 
 
 @RollPass.back_tension
 def back_tension(self: RollPass):
     raise ValueError(
-        "You must provide a back tension to use the Ford-Ellis-Bland estimator of the pyroll-neutral-line-estimator plugin.")
+        "Please provide a back tension to use the Ford-Ellis-Bland estimator of the pyroll-neutral-line-estimator plugin.")
 
 
 @RollPass.Roll.osborn_neutral_point_estimator
 def osborn_neutral_point_estimator(self: RollPass.Roll):
-    if chosen_estimator(ESTIMATOR, "osborn"):
+    if chosen_estimator(Config.ESTIMATOR, "osborn"):
         rp = self.roll_pass
 
         return -self.working_radius * np.sin(
