@@ -9,9 +9,10 @@ def test_solve(tmp_path: Path, caplog, monkeypatch):
     caplog.set_level(logging.INFO, logger="pyroll")
 
     import pyroll.neutral_point_estimator
-    monkeypatch.setenv("PYROLL_NEUTRAL_POINT_ESTIMATOR_ESTIMATOR", "EQUAL")
+    monkeypatch.setenv("PYROLL_NEUTRAL_POINT_ESTIMATOR_ESTIMATOR", "SIEBEL")
 
     root_hooks.add(Roll.neutral_point)
+
     try:
         in_profile = Profile.round(
             diameter=30e-3,
@@ -36,7 +37,7 @@ def test_solve(tmp_path: Path, caplog, monkeypatch):
                     rotational_frequency=1
                 ),
                 gap=2e-3,
-                coulomb_fricition_coefficient=0.4,
+                coulomb_friction_coefficient=0.4,
                 back_tension=0,
                 front_tension=5e6
             ),
@@ -56,7 +57,7 @@ def test_solve(tmp_path: Path, caplog, monkeypatch):
                     rotational_frequency=1
                 ),
                 gap=2e-3,
-                coulomb_fricition_coefficient=0.4,
+                coulomb_friction_coefficient=0.4,
                 back_tension=5e6,
                 front_tension=0
             ),

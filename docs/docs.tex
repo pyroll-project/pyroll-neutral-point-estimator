@@ -1,0 +1,72 @@
+%! suppress = TooLargeSection
+%! suppress = SentenceEndWithCapital
+%! suppress = TooLargeSection
+% Preamble
+\documentclass[11pt]{PyRollDocs}
+\usepackage{textcomp}
+\usepackage{csquotes}
+\usepackage{wasysym}
+
+\addbibresource{refs.bib}
+% Document
+\begin{document}
+
+    \title{Karman Power and Labour PyRolL Plugin}
+    \author{Christoph Renzing}
+    \date{\today}
+
+    \maketitle
+
+    The PyRolL plugin pyroll-neutral-line-estimator provides different estimators for the neutral point which markes the point of zero shear stresses inside the roll gap.
+
+
+    \section{Model approach}\label{sec:model-approach}
+
+    For rolling in grooves as for flat rolling, the neutral point is the point inside the roll gap where the shear stresses become zero.
+    Hence, rolling is a three-dimensional forming process, the neutral point isn't a point but a curved plane inside the roll gap.
+    For flat rolling as for groove rolling, the actual plane is often assumed as a point marking the horizontal coordinate inside the roll gap.
+    In the case of groove rolling, \textcite{} stated that due to the spreading of the material the roll gap has to be divided into a forward-slip area, a backward-slip area
+    as well as two areas which are called spreading areas.
+    \autoref{} shows a simplified sketch of the areas during rolling.
+    
+    The pyroll-neutral-point-estimator plugin provides different simplified solutions derived by different authors for flat rolling.
+    Featured model equations are taken from \textcite{}, \textcite{}, \textcite{} as well as \textcite{}.
+
+    \paragraph{Ford-Ellis-Bland Solution}\\
+
+    \paragraph{Osborn Solution}\\
+
+    \paragraph{Sims Solution}\\
+
+    \paragraph{Siebel Solution}\\
+
+    \section{Usage instructions}\label{sec:usage-instructions}
+    The plugin can be loaded under the name \texttt{pyroll\_karman\_power\_and\_labour}.
+
+    An implementation of the \lstinline{roll_force} and \lstinline{mean_neutral_plane_position} hook on \lstinline{RollPass} is provided.
+    Furthermore, an implementation of the \lstinline{roll_torque} hook on \lstinline{RollPass.Roll} is provided.
+
+    Additionally, hooks on \lstinline{RollPass} are defined, which are used in the calculation, as listed in \autoref{tab:hookspecs}.
+    The hooks \lstinline{mean_front_tension}, \lstinline{mean_back_tension} and \lstinline{coulomb_friction_coefficient} have to set and adjusted individually.
+
+    \begin{table}
+        \centering
+        \caption{Hooks specified by this plugin.}
+        \label{tab:hookspecs}
+        \begin{tabular}{ll}
+            \toprule
+            Hook name                               & Meaning                                                \\
+            \midrule
+            \texttt{coulomb\_friction\_coefficient} & Coulomb's friction coefficient $\mu$                   \\
+            \texttt{mean\_back\_tension}            & Mean back tension of the roll pass $\sigma_{x,0}$      \\
+            \texttt{mean\_front\_tension}           & Mean front tension of the roll pass $\sigma_{x,1}$     \\
+            \texttt{mean\_neutral\_plane\_position} & Mean neutral plane postion $x_N$                       \\
+            \texttt{karman\_solution}               & KarmanSolver object with solution values as attributes \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    \printbibliography
+
+
+\end{document}
