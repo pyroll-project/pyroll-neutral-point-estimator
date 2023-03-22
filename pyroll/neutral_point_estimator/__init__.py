@@ -9,9 +9,8 @@ class Config:
     ESTIMATOR = ""
 
 
-from . import equal_neutral_line_estimator
 from . import osborn_neutral_point_estimator
-
 from . import ford_ellis_bland_neutral_line_estimator
 from . import siebel_neutral_point_estimator
 from . import sims_neutral_point_estimator
+from . import equal_neutral_line_estimator
