@@ -19,4 +19,22 @@ def back_tension(self: RollPass):
 
 @RollPass.Roll.neutral_point
 def neutral_point(self: RollPass.Roll):
-    return self.ford_ellis_bland_neutral_point_estimator
+    if chosen_estimator(Config.ESTIMATOR, "ford-ellis-bland"):
+        import pyroll.interface_friction
+        rp = self.roll_pass
+
+        entry_angle = np.sqrt(
+            (rp.in_profile.equivalent_height - rp.out_profile.equivalent_height) / rp.roll.working_radius)
+
+        entry_point_height = 2 * np.sqrt(rp.roll.working_radius / rp.out_profile.equivalent_height) * np.arctan(
+            np.sqrt(rp.roll.working_radius / rp.out_profile.equivalent_height) * entry_angle)
+
+        approximate_neutral_plane_height = entry_point_height / 2 - 1 / (2 * rp.coulomb_friction_coefficient) * np.log(
+            rp.in_profile.equivalent_height / rp.out_profile.equivalent_height * (
+                    (1 - rp.front_tension / rp.out_profile.flow_stress) / (
+                    1 - rp.back_tension / rp.in_profile.flow_stress)))
+
+        feb_solution = np.sqrt(rp.out_profile.equivalent_height / self.working_radius) * np.tan(
+            np.sqrt(rp.out_profile.equivalent_height / self.working_radius) * approximate_neutral_plane_height / 2)
+
+        return -np.sin(feb_solution) * self.working_radius
