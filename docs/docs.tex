@@ -11,7 +11,7 @@
 % Document
 \begin{document}
 
-    \title{Karman Power and Labour PyRolL Plugin}
+    \title{Neutral Point Estimator PyRolL Plugin}
     \author{Christoph Renzing}
     \date{\today}
 
@@ -25,43 +25,47 @@
     For rolling in grooves as for flat rolling, the neutral point is the point inside the roll gap where the shear stresses become zero.
     Hence, rolling is a three-dimensional forming process, the neutral point isn't a point but a curved plane inside the roll gap.
     For flat rolling as for groove rolling, the actual plane is often assumed as a point marking the horizontal coordinate inside the roll gap.
-    In the case of groove rolling, \textcite{} stated that due to the spreading of the material the roll gap has to be divided into a forward-slip area, a backward-slip area
+    In the case of groove rolling, \textcite{Kunzman1977} stated that due to the spreading of the material the roll gap has to be divided into a forward-slip area, a backward-slip area
     as well as two areas which are called spreading areas.
-    \autoref{} shows a simplified sketch of the areas during rolling.
-    
+    \autoref{fig:neutral-plane-groove-rolling} shows a simplified sketch of the areas during rolling.
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{img/kunzmann_neutral_plane}
+        \caption{Neutral Plane for groove rolling}
+        \label{fig:neutral-plane-groove-rolling}
+    \end{figure}
+
     The pyroll-neutral-point-estimator plugin provides different simplified solutions derived by different authors for flat rolling.
-    Featured model equations are taken from \textcite{}, \textcite{}, \textcite{} as well as \textcite{}.
+    Featured model equations are taken from \textcite{Ford1951, Bland1948}, \textcite{Sims1954}, \textcite{Siebel1925} as well as \textcite{Bryant1973}.
 
-    \paragraph{Ford-Ellis-Bland Solution}\\
+    Since all of those solutions, derived from various simplified assumptions about the conditions inside the roll gap, are calculating the roll angle of the neutral point, the horizontal coordinate of the neutral point is calculated using equation~\ref{eq:angle-to-coordinate}.
 
-    \paragraph{Osborn Solution}\\
+    \begin{equation}
+        x_n = -R_w \sin\left( \alpha_n \right)
+        \label{eq:angle-to-coordinate}
+    \end{equation}
 
-    \paragraph{Sims Solution}\\
-
-    \paragraph{Siebel Solution}\\
 
     \section{Usage instructions}\label{sec:usage-instructions}
-    The plugin can be loaded under the name \texttt{pyroll\_karman\_power\_and\_labour}.
+    The plugin can be loaded under the name \texttt{pyroll\_neutral\_point\_estimator}.
 
-    An implementation of the \lstinline{roll_force} and \lstinline{mean_neutral_plane_position} hook on \lstinline{RollPass} is provided.
-    Furthermore, an implementation of the \lstinline{roll_torque} hook on \lstinline{RollPass.Roll} is provided.
-
-    Additionally, hooks on \lstinline{RollPass} are defined, which are used in the calculation, as listed in \autoref{tab:hookspecs}.
-    The hooks \lstinline{mean_front_tension}, \lstinline{mean_back_tension} and \lstinline{coulomb_friction_coefficient} have to set and adjusted individually.
+    An implementation of the \lstinline{neutral_point} hook on \lstinline{RollPass} is provided.
+    Furthermore, to decide which estimator is used the \lstinline{pyroll.neutral_point_estimator.Config.ESTIMATOR} variable can be set according to table~\ref{tab:hookspecs}.
 
     \begin{table}
         \centering
-        \caption{Hooks specified by this plugin.}
+        \caption{Config variables for different estimators.}
         \label{tab:hookspecs}
         \begin{tabular}{ll}
             \toprule
-            Hook name                               & Meaning                                                \\
+            Estimator                 & Variable Name              \\
             \midrule
-            \texttt{coulomb\_friction\_coefficient} & Coulomb's friction coefficient $\mu$                   \\
-            \texttt{mean\_back\_tension}            & Mean back tension of the roll pass $\sigma_{x,0}$      \\
-            \texttt{mean\_front\_tension}           & Mean front tension of the roll pass $\sigma_{x,1}$     \\
-            \texttt{mean\_neutral\_plane\_position} & Mean neutral plane postion $x_N$                       \\
-            \texttt{karman\_solution}               & KarmanSolver object with solution values as attributes \\
+            Equal Solution            & \enquote{EQUAL}            \\
+            Ford-Ellis-Bland Solution & \enquote{FORD-ELLIS-BLAND} \\
+            Sims Solution             & \enquote{SIMS}             \\
+            Siebel Solution           & \enquote{SIEBEL}           \\
+            Osborn Solution           & \enquote{OSBORN}           \\
             \bottomrule
         \end{tabular}
     \end{table}

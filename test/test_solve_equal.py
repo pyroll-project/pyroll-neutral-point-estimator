@@ -9,6 +9,7 @@ def test_solve(tmp_path: Path, caplog, monkeypatch):
     caplog.set_level(logging.INFO, logger="pyroll")
 
     import pyroll.neutral_point_estimator
+    pyroll.neutral_point_estimator.Config.ESTIMATOR
 
     monkeypatch.setenv("PYROLL_NEUTRAL_POINT_ESTIMATOR_ESTIMATOR", "EQUAL")
 
