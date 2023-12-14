@@ -5,30 +5,24 @@ from .utils import chosen_estimator
 from pyroll.core import RollPass
 
 
-# rp.roll.nominal_outer_diameter
-# rp.roll.base_body_height
-# rp.roll.rib_distance
-# rp.roll.rib_width
-# rp.roll.rib_flank_angle
-
-
 @RollPass.Roll.neutral_point
 def neutral_point(self: RollPass.Roll):
-    if chosen_estimator(Config.ESTIMATOR, "lichansky_polyakov_ribbed_profile_neutral_point"):
+    if chosen_estimator(Config.ESTIMATOR, "lichansky-polyakov-ribbed-profile"):
         import pyroll.interface_friction
         rp = self.roll_pass
 
-        rib_max_height = (rp.roll.nominal_outer_diameter - rp.roll.base_body_height) / 2
+        rib_flank_angle = np.deg2rad(rp.roll.groove.rib_flank_angle)
 
-        period_length = rp.roll.rib_distance + rp.roll.rib_width + 2 * np.tan(rp.roll.rib_flank_angle) * rib_max_height
+        rib_max_height = (rp.roll.groove.nominal_outer_diameter - rp.roll.groove.base_body_height) / 2
 
-        rib_base_width = rp.roll.rib_width + 2 * np.tan(rp.roll.rib_flank_angle) * rib_max_height
+        period_length = rp.roll.groove.rib_distance + rp.roll.groove.rib_width + 2 * np.tan(rib_flank_angle) * rib_max_height
 
-        median_height_outer_rib_distance = (period_length + rp.roll.rib_width + np.tan(rp.roll.rib_flank_angle)
+        rib_base_width = rp.roll.groove.rib_width + 2 * np.tan(rib_flank_angle) * rib_max_height
+
+        median_height_outer_rib_distance = (period_length + rp.roll.groove.rib_width + np.tan(rib_flank_angle)
                                             * rib_max_height)
 
-        entry_angle = np.sqrt(
-            (rp.in_profile.equivalent_height - rp.out_profile.equivalent_height) / rp.roll.working_radius)
+        entry_angle = np.abs(rp.entry_angle)
 
         neutral_point_angle = np.arcsin(((np.cos(entry_angle) + rp.coulomb_friction_coefficient * np.sin(entry_angle)
             - 1) * ((rp.roll_force / rp.roll.contact_area) * rp.roll.working_radius * (2 * period_length
