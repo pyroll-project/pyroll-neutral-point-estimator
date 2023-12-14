@@ -17,16 +17,15 @@ def back_tension(self: RollPass):
         "Please provide a back tension to use the Sims estimator of the pyroll-neutral-line-estimator plugin.")
 
 
-@RollPass.Roll.neutral_point
-def neutral_point(self: RollPass.Roll):
+@RollPass.Roll.neutral_angle
+def neutral_angle(self: RollPass.Roll):
     if chosen_estimator(Config.ESTIMATOR, "sims"):
         rp = self.roll_pass
         mean_flow_stress = (rp.in_profile.flow_stress + 2 * rp.out_profile.flow_stress) / 3
 
-        sims_solution = np.sqrt(rp.gap / self.working_radius) * np.tan(
+        return np.sqrt(rp.gap / self.working_radius) * np.tan(
             0.5 * (np.arctan(np.sqrt(rp.in_profile.equivalent_height / rp.gap - 1))
                    + np.sqrt(rp.gap / self.working_radius) * (
                            0.25 * np.pi * np.log(rp.in_profile.equivalent_height / rp.gap) + (
                            rp.front_tension - rp.back_tension) / mean_flow_stress)
                    ))
-        return -self.working_radius * np.sin(sims_solution)
