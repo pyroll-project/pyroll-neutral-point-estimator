@@ -15,3 +15,4 @@ from . import siebel_neutral_point_estimator
 from . import sims_neutral_point_estimator
 from . import equal_neutral_line_estimator
 from . import lichansky_polyakov_ribbed_profile_neutral_point
+from . import napatov_ribbed_profile_neutral_point
