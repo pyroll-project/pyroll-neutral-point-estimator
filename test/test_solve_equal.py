@@ -62,6 +62,9 @@ def test_solve(tmp_path: Path, caplog, monkeypatch):
 
         try:
             sequence.solve(in_profile)
+
+            assert sequence[0].roll.neutral_point < 0
+            assert sequence[2].roll.neutral_point < 0
         finally:
             print("\nLog:")
             print(caplog.text)
