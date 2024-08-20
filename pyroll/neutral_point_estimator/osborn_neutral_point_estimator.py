@@ -23,7 +23,7 @@ def neutral_angle(self: RollPass.Roll):
         import pyroll.interface_friction
 
         rp = self.roll_pass
-        return 0.5 * np.sqrt((rp.in_profile.equivalent_height - rp.gap) / self.working_radius) * (
+        return - 0.5 * np.sqrt((rp.in_profile.equivalent_height - rp.gap) / self.working_radius) * (
                 3 * rp.gap / (rp.in_profile.equivalent_height + 2 * rp.gap)) - 0.25 * (
                 rp.gap * (rp.in_profile.equivalent_height - rp.gap) / self.working_radius * 1 / 3 * (
                     rp.in_profile.equivalent_height + 2 * rp.gap) + 0.275 * rp.gap / (

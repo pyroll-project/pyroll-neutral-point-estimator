@@ -23,7 +23,7 @@ def neutral_angle(self: RollPass.Roll):
         rp = self.roll_pass
         mean_flow_stress = (rp.in_profile.flow_stress + 2 * rp.out_profile.flow_stress) / 3
 
-        return np.sqrt(rp.gap / self.working_radius) * np.tan(
+        return - np.sqrt(rp.gap / self.working_radius) * np.tan(
             0.5 * (np.arctan(np.sqrt(rp.in_profile.equivalent_height / rp.gap - 1))
                    + np.sqrt(rp.gap / self.working_radius) * (
                            0.25 * np.pi * np.log(rp.in_profile.equivalent_height / rp.gap) + (
