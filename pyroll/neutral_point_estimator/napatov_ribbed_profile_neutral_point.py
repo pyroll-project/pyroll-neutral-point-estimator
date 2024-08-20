@@ -8,14 +8,14 @@ from pyroll.core import RollPass
 @RollPass.Roll.neutral_point
 def neutral_point(self: RollPass.Roll):
     if chosen_estimator(Config.ESTIMATOR, "napatov-ribbed-profile"):
-        import pyroll.interface_friction
         rp = self.roll_pass
 
         rib_flank_angle = np.deg2rad(rp.roll.groove.rib_flank_angle)
 
         rib_max_height = (rp.roll.groove.nominal_outer_diameter - rp.roll.groove.base_body_height) / 2
 
-        period_length = rp.roll.groove.rib_distance + rp.roll.groove.rib_width + 2 * np.tan(rib_flank_angle) * rib_max_height
+        period_length = rp.roll.groove.rib_distance + rp.roll.groove.rib_width + 2 * np.tan(
+            rib_flank_angle) * rib_max_height
 
         angle_theta = np.deg2rad((period_length * 180) / (rp.roll.working_radius * np.pi))
 

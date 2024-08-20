@@ -5,18 +5,6 @@ from .utils import chosen_estimator
 from pyroll.core import RollPass
 
 
-@RollPass.front_tension
-def front_tension(self: RollPass):
-    raise ValueError(
-        "Please provide a front tension to use the Sims estimator of the pyroll-neutral-line-estimator plugin.")
-
-
-@RollPass.back_tension
-def back_tension(self: RollPass):
-    raise ValueError(
-        "Please provide a back tension to use the Sims estimator of the pyroll-neutral-line-estimator plugin.")
-
-
 @RollPass.Roll.neutral_angle
 def neutral_angle(self: RollPass.Roll):
     if chosen_estimator(Config.ESTIMATOR, "sims"):
