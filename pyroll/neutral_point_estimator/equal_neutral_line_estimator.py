@@ -1,9 +1,9 @@
 from . import Config
 from .utils import chosen_estimator
-from pyroll.core import RollPass
+from pyroll.core import BaseRollPass
 
 
-@RollPass.Roll.neutral_point
-def neutral_point(self: RollPass.Roll):
+@BaseRollPass.Roll.neutral_point
+def neutral_point(self: BaseRollPass.Roll):
     if chosen_estimator(Config.ESTIMATOR, "equal"):
         return - self.contact_length / 2

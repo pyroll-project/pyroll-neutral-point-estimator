@@ -2,11 +2,11 @@ import numpy as np
 
 from . import Config
 from .utils import chosen_estimator
-from pyroll.core import RollPass
+from pyroll.core import BaseRollPass
 
 
-@RollPass.Roll.neutral_angle
-def neutral_angle(self: RollPass.Roll):
+@BaseRollPass.Roll.neutral_angle
+def neutral_angle(self: BaseRollPass.Roll):
     if chosen_estimator(Config.ESTIMATOR, "sims"):
         rp = self.roll_pass
         mean_flow_stress = (rp.in_profile.flow_stress + 2 * rp.out_profile.flow_stress) / 3
