@@ -1,7 +1,7 @@
 from pyroll.core import config as _config
 from . import utils
 
-VERSION = "3.0"
+VERSION = "3.0.0"
 
 
 @_config("PYROLL_NEUTRAL_POINT_ESTIMATOR")
