@@ -162,3 +162,15 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+/docs/docs.aux
+/docs/docs.bbl
+/docs/docs.bcf
+/docs/docs.blg
+/docs/docs.out
+/docs/docs.run.xml
+/docs/docs.synctex.gz
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/pyroll-neutral-point-estimator.iml
+/.idea/vcs.xml

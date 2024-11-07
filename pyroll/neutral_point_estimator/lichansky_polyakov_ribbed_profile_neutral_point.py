@@ -22,7 +22,7 @@ def neutral_point(self: RollPass.Roll):
         median_height_outer_rib_distance = (period_length + rp.roll.groove.rib_width + np.tan(rib_flank_angle)
                                             * rib_max_height)
 
-        entry_angle = np.abs(rp.entry_angle)
+        entry_angle = np.abs(self.entry_angle)
 
         neutral_point_angle = np.arcsin(((np.cos(entry_angle) + rp.coulomb_friction_coefficient * np.sin(entry_angle)
                                           - 1) * ((rp.roll_force / rp.roll.contact_area) * rp.roll.working_radius * (

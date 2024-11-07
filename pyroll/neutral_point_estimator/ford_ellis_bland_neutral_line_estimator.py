@@ -2,16 +2,16 @@ import numpy as np
 
 from . import Config
 from .utils import chosen_estimator
-from pyroll.core import BaseRollPass
+from pyroll.core import SymmetricRollPass
 
 
-@BaseRollPass.Roll.neutral_angle
-def neutral_angle(self: BaseRollPass.Roll):
+@SymmetricRollPass.Roll.neutral_angle
+def neutral_angle(self: SymmetricRollPass.Roll):
     if chosen_estimator(Config.ESTIMATOR, "ford-ellis-bland"):
         rp = self.roll_pass
 
         entry_point_height = 2 * np.sqrt(rp.roll.working_radius / rp.out_profile.equivalent_height) * np.arctan(
-            np.sqrt(rp.roll.working_radius / rp.out_profile.equivalent_height) * rp.entry_angle)
+            np.sqrt(rp.roll.working_radius / rp.out_profile.equivalent_height) * self.entry_angle)
 
         approximate_neutral_plane_height = entry_point_height / 2 - 1 / (2 * rp.coulomb_friction_coefficient) * np.log(
             rp.in_profile.equivalent_height / rp.out_profile.equivalent_height * (
