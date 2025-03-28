@@ -12,7 +12,7 @@ def neutral_angle(self: SymmetricRollPass.Roll):
         return - 0.5 * np.sqrt((rp.in_profile.equivalent_height - rp.gap) / self.working_radius) * (
                 3 * rp.gap / (rp.in_profile.equivalent_height + 2 * rp.gap)) - 0.25 * (
                 rp.gap * (rp.in_profile.equivalent_height - rp.gap) / self.working_radius * 1 / 3 * (
-                rp.in_profile.equivalent_height + 2 * rp.gap) + 0.275 * rp.gap / (
+                rp.in_profile.equivalent_height + 2 * rp.gap)) + 0.275 * rp.gap / (
                         rp.coulomb_friction_coefficient * self.working_radius) * (
                         rp.front_tension / rp.out_profile.flow_stress - rp.back_tension / rp.in_profile.flow_stress)
-        )
+
