@@ -9,7 +9,7 @@ def test_solve_lippmann_mahrenholz(tmp_path: Path, caplog, monkeypatch):
     caplog.set_level(logging.INFO, logger="pyroll")
 
     import pyroll.neutral_point_estimator
-    monkeypatch.setenv("PYROLL_NEUTRAL_POINT_ESTIMATOR_ESTIMATOR", "FORD-ELLIS-BLAND")
+    monkeypatch.setenv("PYROLL_NEUTRAL_POINT_ESTIMATOR_ESTIMATOR", "LIPPMANN-MAHRENHOLZ")
 
     root_hooks.add(Roll.neutral_point)
 

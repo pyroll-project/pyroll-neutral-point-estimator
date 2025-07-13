@@ -23,7 +23,7 @@ def relative_neutral_angle(self: SymmetricRollPass.Roll):
     return p1 * np.tan(p2 + p3)
 
 
-@SymmetricRollPass.Roll.neutral_point
-def neutral_point(self: SymmetricRollPass.Roll):
+@SymmetricRollPass.Roll.neutral_angle
+def neutral_angle(self: SymmetricRollPass.Roll):
     if chosen_estimator(Config.ESTIMATOR, "lippmann-mahrenholz"):
         return self.entry_angle * self.relative_neutral_angle
